@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="assets/icons/favicon.ico" />
+    <link rel="icon" href="assets/icons/favicon.png" />
     <title>Daily Dish</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Yellowtail&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
     <link
@@ -18,18 +18,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             fontFamily: {
               sans: ["Outfit", "sans-serif"],
               serif: ["Playfair Display", "serif"],
-              cursive: ["Yellowtail", "cursive"],
             },
             colors: {
               brand: {
                 50: "#fffbeb",
                 100: "#fef3c7",
-                200: "#fde68a",
                 500: "#f59e0b",
                 600: "#d97706",
                 700: "#b45309",
@@ -42,276 +41,210 @@
     <link rel="stylesheet" href="assets/style/style.css" />
   </head>
   <body
-    class="bg-gradient-to-br from-slate-50 via-amber-50/10 to-slate-100 text-slate-800 min-h-screen font-sans flex flex-col overflow-hidden antialiased"
+    class="bg-slate-50/60 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen font-sans antialiased flex flex-col relative transition-colors duration-300 pt-24"
   >
+    <div
+      class="fixed top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-amber-200/15 dark:bg-amber-500/5 blur-[120px] pointer-events-none -z-10 transition-colors duration-300"
+    ></div>
+    <div
+      class="fixed bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-orange-200/10 dark:bg-orange-500/5 blur-[120px] pointer-events-none -z-10 transition-colors duration-300"
+    ></div>
+
     <header
-      class="main-header sticky top-0 z-40 backdrop-blur-md bg-white/80 border-b border-slate-200/60 px-6 py-4 flex items-center justify-between shadow-sm gap-4 transition-all duration-300"
+      class="main-header fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[1400px] z-40 glass-panel border border-white/40 dark:border-slate-800/60 rounded-full px-4 py-3 flex items-center justify-between shadow-lg shadow-slate-200/20 dark:shadow-black/20 transition-all duration-300"
     >
-      <div class="flex items-center gap-3">
-        <button
-          id="filter-toggle"
-          class="icon-btn p-3 rounded-full hover:bg-slate-100 border border-slate-200/60 shadow-sm transition-all duration-300 active:scale-95 flex items-center justify-center text-slate-600 hover:text-amber-600 hover:border-amber-200 cursor-pointer"
+      <div
+        class="logo font-sans text-lg md:text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 cursor-pointer flex items-center gap-2 select-none active:scale-95 transition-transform duration-200"
+        onclick="window.location.reload()"
+      >
+        <span
+          class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white text-sm"
+          ><i class="fa-solid fa-utensils"></i
+        ></span>
+        <span class="hidden sm:block"
+          >DAILY<span class="text-amber-500 font-light">DISH</span></span
         >
-          <span class="bar text-lg font-bold"
-            ><i class="fa-solid fa-bars-staggered"></i
-          ></span>
-        </button>
-        <div
-          class="logo font-cursive text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent cursor-pointer flex items-center gap-2 select-none active:scale-95 transition-transform duration-200"
-          onclick="window.location.reload()"
-        >
-          <i
-            class="fa-solid fa-utensils text-amber-500 text-2xl group-hover:rotate-12 transition-transform"
-          ></i>
-          <span>Daily Dish</span>
-        </div>
       </div>
 
       <div
-        class="search-bar-container relative flex items-center max-w-xl w-full mx-2 md:mx-6 shadow-sm rounded-full bg-slate-50 border border-slate-200/80 focus-within:ring-2 focus-within:ring-amber-500/20 focus-within:border-amber-500 focus-within:bg-white transition-all duration-300"
+        class="search-bar-container relative flex items-center max-w-lg w-full mx-4 shadow-inner rounded-full bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-800 focus-within:ring-2 focus-within:ring-amber-500/30 focus-within:bg-white dark:focus-within:bg-slate-900 transition-all duration-300"
       >
         <div class="absolute left-4 text-slate-400">
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i class="fa-solid fa-magnifying-glass text-sm"></i>
         </div>
         <input
           type="text"
           id="searchInput"
-          placeholder="Search delicious recipes..."
-          class="w-full pl-11 pr-24 py-3 bg-transparent rounded-full focus:outline-none text-slate-800 text-sm md:text-base placeholder-slate-400"
+          placeholder="Search recipes..."
+          class="w-full pl-10 pr-24 py-2.5 bg-transparent rounded-full focus:outline-none text-slate-850 dark:text-slate-100 text-sm placeholder-slate-400"
         />
         <button
           id="searchBtn"
-          class="absolute right-1.5 top-1.5 bottom-1.5 px-5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs md:text-sm font-semibold rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 flex items-center justify-center cursor-pointer"
+          class="absolute right-1 top-1 bottom-1 px-4 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-full shadow-md transition-all duration-200 active:scale-95 flex items-center justify-center"
         >
           Search
         </button>
       </div>
 
-      <div class="hidden md:block w-12"></div>
+      <button
+        id="theme-toggle"
+        class="w-10 h-10 flex shrink-0 items-center justify-center rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 text-slate-500 dark:text-slate-400 transition-all duration-200 cursor-pointer"
+      >
+        <i class="fa-solid fa-moon text-base"></i>
+      </button>
     </header>
 
     <main
-      class="app-container flex-1 flex relative overflow-hidden h-[calc(100vh-76px)]"
+      class="app-container max-w-[1400px] mx-auto w-full flex-grow relative px-4 md:px-6 py-6 mt-4"
     >
-      <aside
-        class="sidebar w-72 bg-white/95 border-r border-slate-200/50 p-6 overflow-y-auto shrink-0 transition-all duration-300 h-full backdrop-blur-sm scrollbar-thin select-none shadow-md md:shadow-none"
-      >
-        <div
-          class="flex items-center justify-between mb-6 pb-2 border-b border-slate-100"
+      <div class="w-full grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
+        <aside
+          id="desktop-sidebar"
+          class="hidden md:flex flex-col col-span-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 p-5 sticky top-28 shadow-sm"
         >
-          <h2
-            class="text-lg font-serif font-bold text-slate-800 flex items-center gap-2"
+          <div
+            class="relative flex p-1 bg-slate-150/50 dark:bg-slate-950 rounded-2xl mb-6"
           >
-            <i class="fa-solid fa-sliders text-amber-500 text-sm"></i>
-            <span>Recipe Filters</span>
-          </h2>
-        </div>
-
-        <div class="filter-group space-y-5">
-          <div>
-            <h4
-              class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5"
+            <button
+              id="tab-categories"
+              class="flex-1 text-center py-2 text-xs font-bold rounded-xl transition-all cursor-pointer bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 shadow-sm border-none outline-none"
             >
-              <i class="fa-solid fa-drumstick-bite text-amber-500/80"></i> Meat
-              & Poultry
-            </h4>
-            <div class="grid grid-cols-1 gap-2">
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Chicken</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Beef</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Lamb</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <h4
-              class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5"
+              Categories
+            </button>
+            <button
+              id="tab-cuisines"
+              class="flex-1 text-center py-2 text-xs font-bold rounded-xl transition-all cursor-pointer text-slate-400 dark:text-slate-555 hover:text-slate-600 dark:hover:text-slate-400 border-none outline-none"
             >
-              <i class="fa-solid fa-fish text-cyan-500/80"></i> From the Sea
-            </h4>
-            <div class="grid grid-cols-1 gap-2">
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Seafood</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Salmon</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Tuna</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-            </div>
+              Cuisines
+            </button>
           </div>
+          <div id="sidebar-list" class="flex flex-col gap-6 pr-1"></div>
+        </aside>
 
-          <div>
-            <h4
-              class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5"
-            >
-              <i class="fa-solid fa-leaf text-emerald-500/80"></i> Plant Based
-            </h4>
-            <div class="grid grid-cols-1 gap-2">
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Vegan</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Vegetarian</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <h4
-              class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5"
-            >
-              <i class="fa-solid fa-cookie-bite text-rose-400/80"></i> Sweet
-              Treats
-            </h4>
-            <div class="grid grid-cols-1 gap-2">
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Pie</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Cake</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Dessert</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <h4
-              class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5"
-            >
-              <i class="fa-solid fa-bolt text-yellow-500/80"></i> Light Bites
-            </h4>
-            <div class="grid grid-cols-1 gap-2">
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Starter</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Side</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-              <button
-                class="filterbtn text-left px-4 py-2.5 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-amber-50 hover:text-amber-800 hover:border-amber-200/60 font-medium text-slate-600 transition-all duration-200 active:scale-[0.98] text-xs flex items-center justify-between cursor-pointer"
-              >
-                <span>Breakfast</span>
-                <i
-                  class="fa-solid fa-chevron-right text-[10px] text-slate-300"
-                ></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <section
-        class="content-area flex-grow overflow-y-auto p-6 md:p-8 h-full bg-slate-50/30"
-      >
-        <div id="recomText" class="mb-6">
-          <h2
-            class="text-xl md:text-2xl font-serif font-bold text-slate-800 flex items-center gap-2"
+        <div class="col-span-1 md:col-span-3 w-full flex flex-col gap-6">
+          <div
+            id="grid-header"
+            class="flex flex-col sm:flex-row items-center justify-between gap-4 w-full border-b border-slate-200/40 dark:border-slate-800/60 pb-4"
           >
-            <i
-              class="fa-solid fa-wand-magic-sparkles text-amber-500 text-lg"
-            ></i>
-            <span>Recommended Recipes</span>
-          </h2>
-        </div>
-        <div id="searchText" class="mb-6"></div>
+            <div class="text-center sm:text-left">
+              <div id="recomText">
+                <h2
+                  class="text-xl md:text-2xl font-serif font-bold text-slate-800 dark:text-slate-200"
+                >
+                  Discover <span class="text-amber-500">Delicious</span>
+                </h2>
+              </div>
+              <div id="searchText"></div>
+            </div>
+            <div
+              id="pagination-container"
+              class="flex items-center justify-center sm:justify-end gap-2 shrink-0"
+            ></div>
+          </div>
 
-        <div
-          id="recipe-container"
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-1"
-        ></div>
-      </section>
+          <div
+            id="recipe-container"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center w-full"
+          ></div>
+        </div>
+      </div>
     </main>
+
+    <button
+      id="mobile-filter-trigger"
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 md:hidden z-40 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg shadow-amber-500/20 active:scale-95 transition-all flex items-center gap-2 cursor-pointer border-none outline-none"
+    >
+      <i class="fa-solid fa-sliders"></i>
+      <span>Filters</span>
+    </button>
+
+    <div
+      id="mobile-filter-backdrop"
+      class="fixed inset-0 bg-slate-950/40 dark:bg-slate-950/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"
+    >
+      <div
+        id="mobile-filter-sheet"
+        class="absolute bottom-0 left-0 right-0 bg-white dark:bg-slate-900 rounded-t-[2.5rem] p-6 max-h-[80vh] flex flex-col shadow-2xl border-t border-slate-100 dark:border-slate-800/80 transition-transform duration-300 bottom-sheet-inactive"
+      >
+        <div class="flex items-center justify-between mb-5">
+          <h3
+            class="font-serif font-bold text-lg text-slate-800 dark:text-slate-200"
+          >
+            Filters
+          </h3>
+          <button
+            id="close-mobile-filters"
+            class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer border-none outline-none"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div
+          class="relative flex p-1 bg-slate-150/50 dark:bg-slate-950 rounded-2xl mb-5"
+        >
+          <button
+            id="mobile-tab-categories"
+            class="flex-1 text-center py-2 text-xs font-bold rounded-xl transition-all bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 shadow-sm border-none outline-none"
+          >
+            Categories
+          </button>
+          <button
+            id="mobile-tab-cuisines"
+            class="flex-1 text-center py-2 text-xs font-bold rounded-xl transition-all text-slate-400 dark:text-slate-500 border-none outline-none"
+          >
+            Cuisines
+          </button>
+        </div>
+        <div
+          id="mobile-sidebar-list"
+          class="flex flex-col gap-5 overflow-y-auto pr-1 pb-6 scrollbar-none"
+        ></div>
+      </div>
+    </div>
+
+    <footer
+      class="w-full bg-white/50 dark:bg-slate-950/50 backdrop-blur-md border-t border-slate-200/60 dark:border-slate-900 py-6 mt-auto shrink-0 transition-colors duration-300"
+    >
+      <div
+        class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4"
+      >
+        <div
+          class="font-sans text-base font-bold tracking-tight text-slate-800 dark:text-slate-100 flex items-center gap-2"
+        >
+          <span
+            class="w-5 h-5 rounded bg-amber-500 flex items-center justify-center text-white text-[10px]"
+            ><i class="fa-solid fa-utensils"></i
+          ></span>
+          <span>DAILY<span class="text-amber-500 font-light">DISH</span></span>
+        </div>
+        <p class="text-xs text-slate-400 font-medium">
+          &copy; 2026 Daily Dish. Crafted for food lovers.
+        </p>
+        <div class="flex items-center gap-4 text-slate-400 text-lg">
+          <a
+            href="https://github.com/manu-gitxen/Recipe-Finder"
+            class="hover:text-amber-500 transition-colors"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
 
     <div
       id="recipe-modal"
-      class="modal fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-all duration-300"
+      class="modal fixed inset-0 z-50 hidden flex items-center justify-center p-2 md:p-4 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-md transition-all duration-300"
     >
       <div
-        class="modal-content relative bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden border border-slate-100/50 transform scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row max-h-[85vh]"
+        class="modal-content relative bg-white dark:bg-slate-900 rounded-[2rem] max-w-5xl w-full shadow-2xl overflow-hidden border border-white/20 dark:border-slate-800 transform scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[92vh]"
       >
         <button
-          class="close-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-slate-500 hover:text-slate-800 p-2 rounded-full shadow-md border border-slate-200 hover:rotate-90 hover:scale-105 transition-all duration-300 z-10 cursor-pointer flex items-center justify-center w-10 h-10"
+          class="close-btn absolute top-5 right-5 bg-black/20 hover:bg-black/40 backdrop-blur-md text-white p-2 rounded-full shadow-lg transition-all duration-300 z-20 w-10 h-10 flex items-center justify-center"
         >
-          <i class="fa-solid fa-xmark text-lg"></i>
+          <i class="fa-solid fa-xmark"></i>
         </button>
-
         <div
           id="recipe-details-content"
-          class="w-full flex flex-col md:flex-row h-full overflow-y-auto md:overflow-visible"
+          class="w-full h-full flex flex-col md:flex-row overflow-y-auto md:overflow-hidden scrollbar-none"
         ></div>
       </div>
     </div>
